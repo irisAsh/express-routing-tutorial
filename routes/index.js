@@ -46,4 +46,52 @@ router.get('/artists/:artistId/musics/:musicId(\\d+)', function(req, res, next) 
   res.send(req.params);
 });
 
+router.get('/handlers/three_callback',
+  function(req, res, next) {
+    console.log('callback 1');
+    next();
+  },
+  function(req, res, next) {
+    console.log('callback 2');
+    next();
+  },
+  function(req, res, next) {
+    console.log('callback 3');
+    res.send('Three Callback');
+  }
+);
+
+var callbackOne = function(req, res, next) {
+  console.log('array 1');
+  next();
+};
+
+var callbackTwo = function(req, res, next) {
+  console.log('array 2');
+  next();
+};
+
+var callbackThree = function(req, res, next) {
+  console.log('array 3');
+  res.send('Array');
+};
+
+router.get('/handlers/array', [callbackOne, callbackTwo, callbackThree]);
+
+router.get('/handlers/login_check',
+  function(req, res, next) {
+    console.log('check');
+    var loggedIn = false;
+    if (loggedIn) {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  },
+  function(req, res, next) {
+    console.log('passed');
+    res.send('Login check');
+  }
+);
+
 module.exports = router;
