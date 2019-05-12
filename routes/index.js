@@ -26,7 +26,7 @@ router.get('/root_(twenty_)?four', function(req, res, next) {
   res.send('root four');
 });
 
-router.get(/^root_.*_five$/, function(req, res, next) {
+router.get(/root_.*_five/, function(req, res, next) {
   res.send('root five');
 });
 
